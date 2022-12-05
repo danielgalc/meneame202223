@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tablas;
 
 use PDO;
@@ -47,22 +48,21 @@ class Usuario extends Modelo
         return password_verify($password, $fila['password']) ? new static($fila) : false;
     }
 
-    public static function comprobarRegistro($username, $psswd, ?PDO $pdo = null)
+    public static function comprobarRegistro($username, $password, ?PDO $pdo = null)
     {
         $pdo = $pdo ?? conectar();
-        $sent = $pdo->prepare('SELECT * FROM usuarios WHERE usuario =:username');
+        $sent = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = :username');
         $sent->execute([':username' => $username]);
         $fila = $sent->fetch(PDO::FETCH_ASSOC);
 
         if ($fila === false) {
-            $sent = $pdo->prepare("INSERT INTO usuarios (usuario, password)
-                                  VALUES (:username, crypt(:psswd, gen_salt('bf', 10)))");
-            $sent->execute([':username' => $username, ':psswd' => $psswd]);
-        }
-        
-        $campos['usuario'] = $username;
-        
-        return new Usuario($campos);
-    }
+        $sent = $pdo->prepare("INSERT INTO usuarios (usuario, password)
+                                    VALUES (:username, crypt(:password, gen_salt('bf', 10)))");
+        $sent->execute([':username' => $username, ':password' => $password]);
 
+        $campos['usuario'] = $username;
+
+        return new Usuario($campos);
+        }
+    }
 }
