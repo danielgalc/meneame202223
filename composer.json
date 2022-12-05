@@ -1,6 +1,7 @@
 {
     "require": {
-      "mpdf/mpdf": "^8.1"
+      "mpdf/mpdf": "^8.1",
+        "nesbot/carbon": "^2.64"
     },
     "autoload": {
       "psr-4": {

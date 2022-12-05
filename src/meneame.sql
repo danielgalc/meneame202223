@@ -25,5 +25,9 @@ VALUES ('admin', crypt('admin', gen_salt('bf', 10))),
        ('dani', crypt('dani', gen_salt('bf', 10)));
 
 INSERT INTO noticias (titular, noticia_usuario, likes)
-VALUES ('Enrique aprueba en DAW', 1, 0),
+VALUES ('Troste', 3, 0),
+       ('Troste', 3, 0),
+       ('Troste', 3, 0),
+       ('Troste', 3, 0),
+       ('Troste', 3, 0),
        ('España pierde contra Japon', 2, 0);

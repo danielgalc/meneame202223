@@ -2,7 +2,7 @@
 
 function conectar()
 {
-    return new \PDO('pgsql:host=localhost, dbname=meneame', 'meneame', 'meneame');
+    return new \PDO('pgsql:host=localhost, dbname=tienda', 'tienda', 'tienda');
 }
 
 function hh($x)
