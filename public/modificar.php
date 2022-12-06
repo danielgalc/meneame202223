@@ -3,17 +3,12 @@
 session_start();
 
 require '../vendor/autoload.php';
-require '../src/_alerts.php';
-require '../src/_menu.php';
 
-$id = obtener_get('id');
-
-
-if (!isset($id)) {
-    header('Location: /dashboard.php');
-}
+$id = obtener_post('id');
+$titular = obtener_post('titular');
 
 $pdo = $pdo ?? conectar();
 $sent = $pdo->prepare("UPDATE noticias SET titular = :titular WHERE id = :id");
 $sent->execute([':titular' => $titular, 'id'=> $id]);
-?>
+
+header('Location: /dashboard.php');

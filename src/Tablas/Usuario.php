@@ -56,13 +56,13 @@ class Usuario extends Modelo
         $fila = $sent->fetch(PDO::FETCH_ASSOC);
 
         if ($fila === false) {
-        $sent = $pdo->prepare("INSERT INTO usuarios (usuario, password)
+            $sent = $pdo->prepare("INSERT INTO usuarios (usuario, password)
                                     VALUES (:username, crypt(:password, gen_salt('bf', 10)))");
-        $sent->execute([':username' => $username, ':password' => $password]);
+            $sent->execute([':username' => $username, ':password' => $password]);
 
-        $campos['usuario'] = $username;
+            $campos['usuario'] = $username;
 
-        return new Usuario($campos);
+            return new Usuario($campos);
         }
     }
 }
