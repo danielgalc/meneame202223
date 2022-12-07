@@ -1,18 +1,22 @@
 <?php 
 
-require_once 'auxiliar.php';
+namespace App\Tablas;
+
+use PDO;
 
 class Noticia 
 {
     public $id;
     public $titular;
     public $noticia_usuario;
+    public $likes;
 
     public function __construct(array $campos)
     {
         $this->id = $campos['id'];
         $this->titular = $campos['titular'];
         $this->noticia_usuario = $campos['noticia_usuario'];
+        $this->likes = $campos['likes'];
     }
 
     public static function existe(int $id, ?PDO $pdo = null): bool
@@ -35,5 +39,15 @@ class Noticia
 
         return new static($fila);
         return $fila ? new static($fila) : null;
+    }
+
+    public function getTitular()
+    {
+        return $this->titular;
+    }
+
+    public function getLikes()
+    {
+        return $this->likes;
     }
 }

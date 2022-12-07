@@ -31,6 +31,22 @@ function obtener_parametro($par, $array)
     return isset($array[$par]) ? trim($array[$par]) : null;
 }
 
+function favorito()
+{
+    if (!isset($_SESSION['favorito'])) {
+        $_SESSION['favorito'] = serialize(new \App\Generico\Favorito());
+    }
+
+    return $_SESSION['favorito'];
+}
+
+function favorito_vacio()
+{
+    $favorito = unserialize(favorito());
+
+    return $favorito->vacio();
+}
+
 function volver()
 {
     header('Location: /index.php');
