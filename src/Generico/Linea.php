@@ -3,16 +3,19 @@
 namespace App\Generico;
 
 use App\Tablas\Noticia;
+use PDOStatement;
 
 class Linea extends Modelo
 {
     public Noticia $noticia;
     private int $likes;
+    private $noticia_usuario;
 
-    public function __construct(Noticia $noticia, int $likes = 1)
+    public function __construct(Noticia $noticia, int $likes = 1, $noticia_usuario = 1)
     {
         $this->setNoticia($noticia);
         $this->setLikes($likes);
+        $this->setNoticiaUsuario($noticia_usuario);
     }
 
     public function getNoticia(): Noticia
@@ -34,6 +37,16 @@ class Linea extends Modelo
     public function getLikes(): int
     {
         return $this->likes;
+    }
+
+    public function setNoticiaUsuario($noticia_usuario)
+    {
+        $this->noticia_usuario = $noticia_usuario;
+    }
+    
+    public function getNoticiaUsuario(): int
+    {
+        return $this->noticia_usuario;
     }
 /*     public function incrCantidad()
     {

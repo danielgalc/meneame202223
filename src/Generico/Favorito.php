@@ -20,14 +20,14 @@ class Favorito extends Modelo
             throw new ValueError('El artículo no existe.');
         }
 
-        if (isset($this->lineas[$id])) {
-            $this->lineas[$id]->incrCantidad();
-        } else {
+         if (!isset($this->lineas[$id])) {
             $this->lineas[$id] = new Linea($noticia);
-        }
+        }/* else {
+            $this->lineas[$id]->incrCantidad();
+        } */
     }
 
-    public function eliminar($id)
+/*     public function eliminar($id)
     {
         if (isset($this->lineas[$id])) {
             $this->lineas[$id]->decrCantidad();
@@ -37,7 +37,7 @@ class Favorito extends Modelo
         } else {
             throw new ValueError('Artículo inexistente en el carrito');
         }
-    }
+    } */
 
     public function vacio(): bool
     {

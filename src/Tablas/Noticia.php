@@ -3,6 +3,7 @@
 namespace App\Tablas;
 
 use PDO;
+use PDOStatement;
 
 class Noticia 
 {
@@ -27,7 +28,6 @@ class Noticia
     public static function obtener(int $id, ?PDO $pdo = null): ?static
     {
         $pdo = $pdo ?? conectar();
-        $sent = $pdo ->prepare('SELECT * FROM noticias WHERE id = :id');
         $sent = $pdo->prepare('SELECT *
                                  FROM noticias
                                 WHERE id = :id');
@@ -49,5 +49,11 @@ class Noticia
     public function getLikes()
     {
         return $this->likes;
+    }
+
+    public function getNoticiaUsuario(): int
+    {
+        return $this->noticia_usuario;
+        
     }
 }

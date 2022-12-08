@@ -1,4 +1,8 @@
-<?php session_start() ?>
+<?php
+
+use App\Tablas\Noticia;
+
+ session_start() ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -63,16 +67,19 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <th scope="col" class="py-3 px-6">Titular</th>
                                 <th scope="col" class="py-3 px-6">Likes</th>
+                                <th scope="col" class="py-3 px-6">Usuario</th>
                             </thead>
                             <tbody>
                                 <?php foreach ($favorito->getLineas() as $id => $linea): ?>
                                     <?php
                                     $noticia = $linea->getNoticia();
                                     $likes = $linea->getLikes();
+                                    $noticia_usuario = $linea->getNoticiaUsuario();
                                     ?>
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="py-4 px-6"><?= $noticia->getTitular() ?></td>
                                         <td class="py-4 px-6 text-center"><?= $noticia->getLikes() ?></td>
+                                        <td class="py-4 px-6 text-center"><?= $noticia->getNoticiaUsuario() ?></td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>
@@ -83,7 +90,6 @@
                     </div>
                 </aside>
             <?php endif ?>
-
         </div>
     </div>
     <script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
