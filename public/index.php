@@ -18,6 +18,7 @@ use App\Tablas\Noticia;
 <body>
     <?php
     require '../vendor/autoload.php';
+    require '../src/_alerts.php';
 
     $favorito = unserialize(favorito());
 

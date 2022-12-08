@@ -61,3 +61,8 @@ function redirigir_login()
 {
     header('Location: /login.php');
 }
+
+function redirigir_dashboard()
+{
+    header('Location: /dashboard.php');
+}

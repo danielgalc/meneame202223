@@ -4,8 +4,7 @@ session_start();
 
 require '../vendor/autoload.php';
 
-$id = obtener_get('id');
-
+$id = obtener_post('id');
 
 if (!isset($id)) {
     header('Location: /dashboard.php');
