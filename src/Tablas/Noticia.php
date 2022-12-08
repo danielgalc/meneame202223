@@ -3,7 +3,6 @@
 namespace App\Tablas;
 
 use PDO;
-use PDOStatement;
 
 class Noticia 
 {

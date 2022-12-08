@@ -3,7 +3,6 @@
 namespace App\Generico;
 
 use App\Tablas\Noticia;
-use PDOStatement;
 
 class Linea extends Modelo
 {

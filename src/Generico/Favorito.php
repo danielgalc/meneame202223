@@ -21,10 +21,11 @@ class Favorito extends Modelo
         }
 
          if (!isset($this->lineas[$id])) {
-            $this->lineas[$id] = new Linea($noticia);
-        }/* else {
-            $this->lineas[$id]->incrCantidad();
-        } */
+             $this->lineas[$id] = new Linea($noticia);
+             $_SESSION['exito']='Noticia añadida a favoritos correctamente.';
+        } else {
+            $_SESSION['error']='Esta noticia ya está en favoritos.';
+        }
     }
 
 /*     public function eliminar($id)
