@@ -16,4 +16,10 @@ $sent->execute([':id' => $id]);
 
 $_SESSION['exito'] = 'El artículo se ha borrado correctamente.';
 
-header('Location: dashboard.php');
+$usuario = unserialize($_SESSION['login']);
+
+if ($usuario->es_admin()){
+    volver_admin();
+} else {
+    redirigir_dashboard();
+}

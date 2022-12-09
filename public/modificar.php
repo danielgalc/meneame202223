@@ -11,4 +11,12 @@ $pdo = $pdo ?? conectar();
 $sent = $pdo->prepare("UPDATE noticias SET titular = :titular WHERE id = :id");
 $sent->execute([':id' => $id, ':titular' => $titular]);
 
-redirigir_dashboard();
+
+
+$usuario = unserialize($_SESSION['login']);
+
+if ($usuario->es_admin()){
+    volver_admin();
+} else {
+    redirigir_dashboard();
+}

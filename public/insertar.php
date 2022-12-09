@@ -20,5 +20,11 @@ if (strlen($titular) < 4){
     $sent = $pdo->prepare('INSERT INTO noticias (titular, likes, noticia_usuario) VALUES (:titular, 0, :usuario)');
     $sent->execute(['usuario' => $usuario, ':titular' => $titular]);
     
-    return redirigir_dashboard();
+    $usuario = unserialize($_SESSION['login']);
+
+    if ($usuario->es_admin()){
+        volver_admin();
+    } else {
+        redirigir_dashboard();
+    }
 }
