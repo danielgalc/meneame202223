@@ -1,4 +1,8 @@
-<?php session_start() ?>
+<?php
+
+use Carbon\Carbon;
+
+session_start() ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,7 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />
     <link href="/css/output.css" rel="stylesheet">
     <script>
-        function borrar(el, id) {
+        function cambiar(el, id) {
             el.preventDefault();
             const oculto = document.getElementById('oculto');
             oculto.setAttribute('value', id);
@@ -34,9 +38,8 @@
     }
 
     $pdo = conectar();
-    $sent = $pdo->query('SELECT * from usuarios');
+    $sent = $pdo->query('SELECT * from usuarios u JOIN noticias n ON n.noticia_usuario = u.id');
     ?>
-
     <nav class="bg-gray-50 dark:bg-gray-700">
         <div class="max-w-screen-xl px-4 py-3 mx-auto md:px-6">
             <div class="flex items-center">
@@ -59,11 +62,21 @@
             </caption>
             <thead class="border-b">
                 <tr>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">ID</th>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Usuario</th>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Password</th>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Acción 1</th>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Acción 2</th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                        ID
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                        Titular
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                        Autor
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                        Publicado en
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                        Acciones
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -73,21 +86,24 @@
                             <?= $fila['id']; ?>
                         </th>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
+                            <?= $fila['titular'] ?>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
                             <?= $fila['usuario'] ?>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                            <?= $fila['password'] ?>
+                            <?= Carbon::parse($fila['created_at'])->toDateString() ?>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                            <form action="/admin/editar.php" method="POST" class="inline">
+                        <td class="flex text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <form action="/admin/editarNoticia.php" method="POST" class="inline">
                                 <input type="hidden" name="id" value="<?= $fila['id'] ?>">
                                 <button type="submit" onclick="cambiarModificar(event, <?= $fila['id'] ?>)" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-modal-toggle="editar">Editar</button>
                             </form>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                            <form action="/admin/borrar.php" method="POST" class="inline">
+                        <td class="flex text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <form action="/admin/borrarNoticia.php" method="POST" class="inline">
                                 <input type="hidden" name="id" value="<?= $fila['id'] ?>">
-                                <button type="submit" onclick="borrar(event, <?= $fila['id'] ?>)" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-modal-toggle="borrar">Borrar</button>
+                                <button type="submit" onclick="cambiar(event, <?= $fila['id'] ?>)" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-modal-toggle="borrar">Borrar</button>
                             </form>
                         </td>
                     </tr>
@@ -108,8 +124,8 @@
                     <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Seguro que desea borrar este usuario?</h3>
-                    <form action="/admin/borrar.php" method="POST">
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Seguro que desea borrar este artículo?</h3>
+                    <form action="/admin/borrarNoticia.php" method="POST">
                         <input id="oculto" type="hidden" name="id">
                         <button data-modal-toggle="borrar" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                             Sí, seguro
@@ -135,8 +151,8 @@
                     <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Seguro que desea editar este usuario?</h3>
-                    <form action="/admin/editar.php" method="POST">
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Seguro que desea editar este artículo?</h3>
+                    <form action="/admin/editarNoticia.php" method="POST">
                         <input id="modificar" type="hidden" name="id">
                         <input type="text" name="titular" id="titular" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                         <button data-modal-toggle="editar" type="submit" class="mt-4 text-white bg-green-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
