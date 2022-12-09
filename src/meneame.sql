@@ -14,6 +14,7 @@ CREATE TABLE noticias (
     id BIGSERIAL primary key,
     titular varchar(255) not null,
     noticia_usuario BIGSERIAL NOT NULL REFERENCES usuarios (id),
+    created_at timestamp  NOT NULL DEFAULT localtimestamp(0),
     likes varchar (255)
 );
 
@@ -24,10 +25,7 @@ VALUES ('admin', crypt('admin', gen_salt('bf', 10))),
        ('pepe', crypt('pepe', gen_salt('bf', 10))),
        ('dani', crypt('dani', gen_salt('bf', 10)));
 
-INSERT INTO noticias (titular, noticia_usuario, likes)
-VALUES ('Troste', 3, 0),
-       ('Troste', 3, 0),
-       ('Troste', 3, 0),
-       ('Troste', 3, 0),
-       ('Troste', 3, 0),
-       ('España pierde contra Japon', 2, 0);
+INSERT INTO noticias (titular, noticia_usuario, likes, created_at)
+VALUES ('Troste', 3, 0, '2007-7-7 23:26:11'),
+       ('Troste', 3, 0, '2017-10-10 23:26:11'),
+       ('España pierde contra Japon', 2, 0, '2012-12-12 12:12:12');

@@ -1,8 +1,10 @@
 <?php
 
-use App\Tablas\Noticia;
+session_start();
 
- session_start() ?>
+use Carbon\Carbon;
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -51,6 +53,7 @@ use App\Tablas\Noticia;
                         
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?= hh($fila['usuario']) ?></p>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?= hh($fila['likes']) ?> ♡</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?= hh(Carbon::parse($fila['created_at'])->toFormattedDateString()) ?> </p>
                         <a href="/insertar_en_favoritos.php?id=<?= $fila['id'] ?>" class="w-32 inline-flex justify-center py-2 px-3.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Leer más
                             <svg aria-hidden="true" class="ml-3 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
