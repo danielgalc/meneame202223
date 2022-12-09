@@ -72,6 +72,7 @@ use Carbon\Carbon;
                                 <th scope="col" class="py-3 px-6">Titular</th>
                                 <th scope="col" class="py-3 px-6">Likes</th>
                                 <th scope="col" class="py-3 px-6">Usuario</th>
+                                <th scope="col" class="py-3 px-6">Fecha</th>
                             </thead>
                             <tbody>
                                 <?php foreach ($favorito->getLineas() as $id => $linea): ?>
@@ -79,11 +80,13 @@ use Carbon\Carbon;
                                     $noticia = $linea->getNoticia();
                                     $likes = $linea->getLikes();
                                     $noticia_usuario = $linea->getNoticiaUsuario();
+                                    $fecha = $linea->getFecha();
                                     ?>
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="py-4 px-6"><?= $noticia->getTitular() ?></td>
                                         <td class="py-4 px-6 text-center"><?= $noticia->getLikes() ?></td>
                                         <td class="py-4 px-6 text-center"><?= $noticia->getNoticiaUsuario() ?></td>
+                                        <td class="py-4 px-6 text-center"><?= Carbon::parse($noticia->getFecha())->toFormattedDateString() ?></td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>

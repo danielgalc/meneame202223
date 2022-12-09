@@ -9,12 +9,14 @@ class Linea extends Modelo
     public Noticia $noticia;
     private int $likes;
     private $noticia_usuario;
+    public $created_at;
 
-    public function __construct(Noticia $noticia, int $likes = 1, $noticia_usuario = 1)
+    public function __construct(Noticia $noticia, int $likes = 1, $noticia_usuario = 1, $created_at=1)
     {
         $this->setNoticia($noticia);
         $this->setLikes($likes);
         $this->setNoticiaUsuario($noticia_usuario);
+        $this->setFecha($created_at);
     }
 
     public function getNoticia(): Noticia
@@ -46,6 +48,16 @@ class Linea extends Modelo
     public function getNoticiaUsuario(): int
     {
         return $this->noticia_usuario;
+    }
+
+    public function getFecha()
+    {
+        return $this->created_at;
+    }
+
+    public function setFecha($created_at)
+    {
+        return $this->created_at = $created_at;
     }
 /*     public function incrCantidad()
     {

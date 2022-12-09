@@ -10,6 +10,7 @@ class Noticia
     public $titular;
     public $noticia_usuario;
     public $likes;
+    public $created_at;
 
     public function __construct(array $campos)
     {
@@ -17,6 +18,7 @@ class Noticia
         $this->titular = $campos['titular'];
         $this->noticia_usuario = $campos['noticia_usuario'];
         $this->likes = $campos['likes'];
+        $this->created_at = $campos['created_at'];
     }
 
     public static function existe(int $id, ?PDO $pdo = null): bool
@@ -54,5 +56,10 @@ class Noticia
     {
         return $this->noticia_usuario;
         
+    }
+
+    public function getFecha()
+    {
+        return $this->created_at;
     }
 }
