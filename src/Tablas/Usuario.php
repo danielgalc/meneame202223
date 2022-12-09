@@ -62,7 +62,10 @@ class Usuario extends Modelo
 
             $campos['usuario'] = $username;
 
-            return new Usuario($campos);
+            $usuario = new Usuario($campos);
+
+            return $usuario;
+
         }
     }
 }

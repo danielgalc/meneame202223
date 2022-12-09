@@ -9,6 +9,6 @@ $titular = obtener_post('titular');
 
 $pdo = $pdo ?? conectar();
 $sent = $pdo->prepare("UPDATE noticias SET titular = :titular WHERE id = :id");
-$sent->execute([':titular' => $titular, 'id'=> $id]);
+$sent->execute([':id' => $id, ':titular' => $titular]);
 
-header('Location: /dashboard.php');
+redirigir_dashboard();

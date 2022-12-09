@@ -23,8 +23,8 @@
 
     if(isset($username, $password)){
         if($usuario = \App\Tablas\Usuario::comprobarRegistro($username, $password)) {
-            $_SESSION['login'] = serialize($usuario);
-            $_SESSION['exito'] = 'Usuario registrado correctamente.';
+            /* $_SESSION['login'] = serialize($usuario); */
+            $_SESSION['exito'] = 'Usuario registrado correctamente. Ya puede loguear.';
             return volver();
         } else {
             $error = true;

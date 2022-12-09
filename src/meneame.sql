@@ -11,7 +11,7 @@ CREATE TABLE usuarios (
 DROP TABLE IF EXISTS noticias CASCADE;
 
 CREATE TABLE noticias (
-    id bigserial primary key,
+    id BIGSERIAL primary key,
     titular varchar(255) not null,
     noticia_usuario BIGSERIAL NOT NULL REFERENCES usuarios (id),
     likes varchar (255)
