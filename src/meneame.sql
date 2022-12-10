@@ -18,6 +18,23 @@ CREATE TABLE noticias (
     likes varchar (255)
 );
 
+DROP TABLE IF EXISTS facturas CASCADE;
+
+CREATE TABLE facturas (
+    id         bigserial  PRIMARY KEY,
+    created_at timestamp  NOT NULL DEFAULT localtimestamp,
+    usuario_id bigint NOT NULL REFERENCES usuarios (id)
+);
+
+DROP TABLE IF EXISTS noticias_factura CASCADE;
+
+CREATE TABLE noticias_facturas (
+    noticia_id bigint NOT NULL REFERENCES noticias (id),
+    factura_id  bigint NOT NULL REFERENCES facturas (id),
+    cantidad    int    NOT NULL,
+    PRIMARY KEY (noticia_id, factura_id)
+);
+
 -- Carga inicial de datos de prueba:
 
 INSERT INTO usuarios (usuario, password)
