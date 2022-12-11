@@ -6,8 +6,10 @@ use PDO;
 
 class Usuario extends Modelo
 {
+    protected static string $tabla = 'usuarios';
     public $id;
     public $usuario;
+
 
     public function __construct(array $campos)
     {
@@ -48,7 +50,7 @@ class Usuario extends Modelo
         return password_verify($password, $fila['password']) ? new static($fila) : false;
     }
 
-    public static function comprobarRegistro($username, $password, ?PDO $pdo = null)
+/*     public static function comprobarRegistro($username, $password, ?PDO $pdo = null)
     {
         $pdo = $pdo ?? conectar();
         $sent = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = :username');
@@ -67,5 +69,26 @@ class Usuario extends Modelo
             return $usuario;
 
         }
+    } */
+
+    public static function existe($login, ?PDO $pdo = null): bool
+    {
+        return $login == '' ? false :
+            !empty(static::todos(
+                ['usuario = :usuario'],
+                [':usuario' => $login],
+                $pdo
+            ));
+    }
+
+    public static function registrar($login, $password, ?PDO $pdo = null)
+    {
+        $sent = $pdo->prepare('INSERT INTO usuarios (usuario, password)
+                               VALUES (:login, :password)');
+        $sent->execute([
+            ':login' => $login,
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
+        ]);
     }
 }
+

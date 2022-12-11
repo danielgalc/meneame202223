@@ -66,7 +66,7 @@ EOT;
 $mpdf = new \Mpdf\Mpdf();
 
 // Write some HTML code:
-$mpdf->WriteHTML(file_get_contents('css/output.css'), \Mpdf\HTMLParserMode::HEADER_CSS);
+$mpdf->WriteHTML(file_get_contents('/comprar.php'), \Mpdf\HTMLParserMode::HEADER_CSS);
 $mpdf->WriteHTML($res, \Mpdf\HTMLParserMode::HTML_BODY);
 
 // Output a PDF file directly to the browser
